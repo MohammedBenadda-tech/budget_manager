@@ -1,0 +1,247 @@
+rules_version = '2';
+
+// =============================================================================
+// Budget Manager - Firestore Security Rules (initial, restrictive template)
+//
+// Principles
+//   * Default deny. Only the signed-in owner can touch users/{userId}/**.
+//   * Cloud data is a sync transport + backup; every document carries the
+//     fields the sync engine needs (id, version, timestamps, last_op_id).
+//   * Money is validated as integer minor units (centimes). No floats.
+//   * No hard deletes: deletion is a soft-delete tombstone (deleted_at set)
+//     written as an update, so other devices can learn about it.
+//   * Optimistic concurrency: create => version == 1; update => version must
+//     increase by exactly 1. The client pushes via read-compare-write
+//     transactions (see docs/synchronization_strategy.md).
+//
+// STATUS: template written without running the Firestore emulator. Test every
+// rule with the emulator + @firebase/rules-unit-testing before shipping, and
+// tighten field lists (hasOnly) once the data models are final.
+// =============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------------------------------------------------------------- helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function optionalTimestamp(data, field) {
+      return data.get(field, null) == null || data.get(field, null) is timestamp;
+    }
+
+    function isValidMoney(value) {
+      return value is int && value > 0;
+    }
+
+    // Fields every synchronised document must carry.
+    function hasBaseFields(data, docId) {
+      return data.keys().hasAll([
+               'id', 'created_at', 'updated_at', 'version',
+               'last_op_id', 'server_updated_at'
+             ])
+          && data.id == docId
+          && data.created_at is timestamp
+          && data.updated_at is timestamp
+          && data.version is int
+          && data.last_op_id is string
+          && optionalTimestamp(data, 'deleted_at')
+          // server_updated_at must be FieldValue.serverTimestamp()
+          && data.server_updated_at == request.time;
+    }
+
+    function isCreateVersion(data) {
+      return data.version == 1;
+    }
+
+    function isNextVersion() {
+      return request.resource.data.version == resource.data.version + 1;
+    }
+
+    // Immutable after creation.
+    function createdAtUnchanged() {
+      return request.resource.data.created_at == resource.data.created_at;
+    }
+
+    // ------------------------------------------------- per-collection checks
+    function validWallet(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() <= 60
+          && (data.get('description', null) == null
+              || (data.description is string && data.description.size() <= 500))
+          && data.opening_balance_minor is int
+          && data.is_archived is bool;
+    }
+
+    function validTransaction(data) {
+      return data.type in ['income', 'expense']
+          && isValidMoney(data.amount_minor)
+          && data.category_id is string
+          && data.wallet_id is string
+          && data.transaction_date is timestamp
+          && data.month_key is int
+          && (data.get('description', null) == null || data.description is string);
+    }
+
+    function validTransfer(data) {
+      return isValidMoney(data.amount_minor)
+          && data.source_wallet_id is string
+          && data.destination_wallet_id is string
+          && data.source_wallet_id != data.destination_wallet_id
+          && data.transfer_date is timestamp
+          && (data.get('description', null) == null || data.description is string);
+    }
+
+    function validCategory(data) {
+      return data.type in ['income', 'expense']
+          && data.name is string && data.name.size() > 0 && data.name.size() <= 60;
+    }
+
+    function validBudget(data) {
+      return data.month_key is int
+          && data.amount_minor is int && data.amount_minor >= 0;
+    }
+
+    function validSavingsGoal(data) {
+      return data.name is string && data.name.size() > 0
+          && isValidMoney(data.target_amount_minor)
+          && data.saved_amount_minor is int && data.saved_amount_minor >= 0;
+    }
+
+    function validDebt(data) {
+      return data.direction in ['i_owe', 'owed_to_me']
+          && data.counterparty_name is string && data.counterparty_name.size() > 0
+          && isValidMoney(data.principal_minor)
+          && data.debt_date is timestamp;
+    }
+
+    function validDebtRepayment(data) {
+      return data.debt_id is string
+          && isValidMoney(data.amount_minor)
+          && data.repayment_date is timestamp;
+    }
+
+    // ------------------------------------------------------------- documents
+    match /users/{userId} {
+      // Profile document (email, display_name, currency_code, locale, ...).
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId)
+          && request.resource.data.currency_code is string
+          && request.resource.data.locale is string;
+      allow delete: if false; // account deletion is a server-side concern
+
+      match /wallets/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validWallet(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validWallet(request.resource.data);
+        allow delete: if false;
+      }
+
+      match /transactions/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validTransaction(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validTransaction(request.resource.data);
+        allow delete: if false;
+      }
+
+      match /transfers/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validTransfer(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validTransfer(request.resource.data);
+        allow delete: if false;
+      }
+
+      match /categories/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validCategory(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validCategory(request.resource.data);
+        allow delete: if false;
+      }
+
+      match /budgets/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validBudget(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validBudget(request.resource.data);
+        allow delete: if false;
+      }
+
+      match /savings_goals/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validSavingsGoal(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validSavingsGoal(request.resource.data);
+        allow delete: if false;
+      }
+
+      match /debts/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validDebt(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validDebt(request.resource.data);
+        allow delete: if false;
+      }
+
+      match /debt_repayments/{docId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isCreateVersion(request.resource.data)
+            && validDebtRepayment(request.resource.data);
+        allow update: if isOwner(userId)
+            && hasBaseFields(request.resource.data, docId)
+            && isNextVersion() && createdAtUnchanged()
+            && validDebtRepayment(request.resource.data);
+        allow delete: if false;
+      }
+    }
+
+    // Everything else is denied.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

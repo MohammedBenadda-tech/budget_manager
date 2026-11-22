@@ -1,0 +1,590 @@
+# Full directory tree of the Budget Manager scaffold (generated).
+# Every .dart file listed under lib/ is intentionally empty (0 bytes).
+
+budget_manager/
+├── android/
+│   └── .gitkeep
+├── assets/
+│   ├── fonts/
+│   │   └── .gitkeep
+│   ├── icons/
+│   │   └── .gitkeep
+│   └── images/
+│       └── .gitkeep
+├── docs/
+│   ├── architecture.md
+│   ├── database_schema.md
+│   ├── firebase_setup.md
+│   ├── project_structure.md
+│   └── synchronization_strategy.md
+├── drift_schemas/
+│   └── .gitkeep
+├── lib/
+│   ├── app/
+│   │   ├── bootstrap/
+│   │   │   └── app_bootstrap.dart
+│   │   ├── localization/
+│   │   │   └── localization_config.dart
+│   │   ├── router/
+│   │   │   ├── app_router.dart
+│   │   │   ├── app_routes.dart
+│   │   │   └── auth_redirect_guard.dart
+│   │   ├── shell/
+│   │   │   ├── app_shell.dart
+│   │   │   └── navigation_destinations.dart
+│   │   ├── theme/
+│   │   │   ├── app_colors.dart
+│   │   │   ├── app_spacing.dart
+│   │   │   ├── app_theme.dart
+│   │   │   ├── app_typography.dart
+│   │   │   ├── dark_theme.dart
+│   │   │   └── light_theme.dart
+│   │   └── app.dart
+│   ├── core/
+│   │   ├── constants/
+│   │   │   ├── app_constants.dart
+│   │   │   ├── currency_constants.dart
+│   │   │   ├── default_categories.dart
+│   │   │   └── sync_constants.dart
+│   │   ├── database/
+│   │   │   ├── converters/
+│   │   │   │   └── enum_converters.dart
+│   │   │   ├── daos/
+│   │   │   │   ├── analytics_dao.dart
+│   │   │   │   ├── app_settings_dao.dart
+│   │   │   │   ├── balances_dao.dart
+│   │   │   │   ├── budgets_dao.dart
+│   │   │   │   ├── categories_dao.dart
+│   │   │   │   ├── debt_repayments_dao.dart
+│   │   │   │   ├── debts_dao.dart
+│   │   │   │   ├── savings_goals_dao.dart
+│   │   │   │   ├── sync_metadata_dao.dart
+│   │   │   │   ├── sync_operations_dao.dart
+│   │   │   │   ├── transactions_dao.dart
+│   │   │   │   ├── transfers_dao.dart
+│   │   │   │   ├── user_profile_dao.dart
+│   │   │   │   └── wallets_dao.dart
+│   │   │   ├── migrations/
+│   │   │   │   └── app_migrations.dart
+│   │   │   ├── seeds/
+│   │   │   │   └── default_data_seeder.dart
+│   │   │   ├── tables/
+│   │   │   │   ├── app_settings_table.dart
+│   │   │   │   ├── budgets_table.dart
+│   │   │   │   ├── categories_table.dart
+│   │   │   │   ├── debt_repayments_table.dart
+│   │   │   │   ├── debts_table.dart
+│   │   │   │   ├── savings_goals_table.dart
+│   │   │   │   ├── sync_columns.dart
+│   │   │   │   ├── sync_metadata_table.dart
+│   │   │   │   ├── sync_operations_table.dart
+│   │   │   │   ├── transactions_table.dart
+│   │   │   │   ├── transfers_table.dart
+│   │   │   │   ├── user_profile_table.dart
+│   │   │   │   └── wallets_table.dart
+│   │   │   ├── app_database.dart
+│   │   │   └── database_connection.dart
+│   │   ├── dependency_injection/
+│   │   │   ├── core_providers.dart
+│   │   │   ├── database_providers.dart
+│   │   │   ├── firebase_providers.dart
+│   │   │   ├── provider_overrides.dart
+│   │   │   ├── repository_providers.dart
+│   │   │   ├── service_providers.dart
+│   │   │   └── sync_providers.dart
+│   │   ├── errors/
+│   │   │   ├── error_mapper.dart
+│   │   │   ├── exceptions.dart
+│   │   │   └── failures.dart
+│   │   ├── extensions/
+│   │   │   ├── build_context_extensions.dart
+│   │   │   ├── date_time_extensions.dart
+│   │   │   ├── money_extensions.dart
+│   │   │   └── string_extensions.dart
+│   │   ├── network/
+│   │   │   ├── connectivity_service.dart
+│   │   │   └── network_status.dart
+│   │   ├── services/
+│   │   │   ├── app_lifecycle_service.dart
+│   │   │   ├── clock_service.dart
+│   │   │   └── device_identity_service.dart
+│   │   ├── synchronization/
+│   │   │   ├── domain/
+│   │   │   │   ├── conflict_resolution.dart
+│   │   │   │   ├── remote_change.dart
+│   │   │   │   ├── remote_sync_gateway.dart
+│   │   │   │   ├── sync_cursor.dart
+│   │   │   │   ├── sync_entity_type.dart
+│   │   │   │   ├── sync_operation.dart
+│   │   │   │   ├── sync_operation_status.dart
+│   │   │   │   ├── sync_operation_type.dart
+│   │   │   │   └── sync_state.dart
+│   │   │   ├── engine/
+│   │   │   │   ├── conflict_resolver.dart
+│   │   │   │   ├── outbox_recorder.dart
+│   │   │   │   ├── pull_processor.dart
+│   │   │   │   ├── push_processor.dart
+│   │   │   │   ├── retry_policy.dart
+│   │   │   │   ├── sync_engine.dart
+│   │   │   │   ├── sync_scheduler.dart
+│   │   │   │   └── sync_trigger.dart
+│   │   │   ├── handlers/
+│   │   │   │   ├── budget_sync_handler.dart
+│   │   │   │   ├── category_sync_handler.dart
+│   │   │   │   ├── debt_repayment_sync_handler.dart
+│   │   │   │   ├── debt_sync_handler.dart
+│   │   │   │   ├── savings_goal_sync_handler.dart
+│   │   │   │   ├── sync_entity_handler.dart
+│   │   │   │   ├── sync_handler_registry.dart
+│   │   │   │   ├── transaction_sync_handler.dart
+│   │   │   │   ├── transfer_sync_handler.dart
+│   │   │   │   ├── user_profile_sync_handler.dart
+│   │   │   │   └── wallet_sync_handler.dart
+│   │   │   └── providers/
+│   │   │       └── sync_status_provider.dart
+│   │   ├── utils/
+│   │   │   ├── app_logger.dart
+│   │   │   ├── date_utils.dart
+│   │   │   ├── debouncer.dart
+│   │   │   ├── id_generator.dart
+│   │   │   ├── money.dart
+│   │   │   ├── money_formatter.dart
+│   │   │   ├── platform_utils.dart
+│   │   │   ├── result.dart
+│   │   │   └── validators.dart
+│   │   └── widgets/
+│   │       ├── amount_text_field.dart
+│   │       ├── app_error_view.dart
+│   │       ├── app_loading_indicator.dart
+│   │       ├── app_text_field.dart
+│   │       ├── confirm_dialog.dart
+│   │       ├── date_picker_field.dart
+│   │       ├── empty_state_view.dart
+│   │       ├── money_text.dart
+│   │       ├── offline_banner.dart
+│   │       ├── primary_button.dart
+│   │       ├── section_header.dart
+│   │       └── sync_status_indicator.dart
+│   ├── features/
+│   │   ├── analytics/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── analytics_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   ├── category_expense_total_model.dart
+│   │   │   │   │   └── period_summary_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── analytics_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   ├── category_expense_total.dart
+│   │   │   │   │   ├── income_expense_point.dart
+│   │   │   │   │   ├── monthly_comparison.dart
+│   │   │   │   │   └── period_summary.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── analytics_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── get_expense_by_category.dart
+│   │   │   │       ├── get_financial_history.dart
+│   │   │   │       ├── get_income_vs_expense.dart
+│   │   │   │       ├── get_monthly_spending_comparison.dart
+│   │   │   │       ├── get_monthly_summary.dart
+│   │   │   │       └── get_weekly_summary.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── analytics_page.dart
+│   │   │       │   └── financial_history_page.dart
+│   │   │       ├── providers/
+│   │   │       │   └── analytics_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── category_distribution_chart.dart
+│   │   │           ├── income_expense_chart.dart
+│   │   │           ├── monthly_comparison_chart.dart
+│   │   │           ├── period_selector.dart
+│   │   │           └── summary_card.dart
+│   │   ├── authentication/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   ├── auth_local_datasource.dart
+│   │   │   │   │   └── auth_remote_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── app_user_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── auth_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   └── app_user.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── auth_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── get_current_user.dart
+│   │   │   │       ├── login_with_email.dart
+│   │   │   │       ├── logout.dart
+│   │   │   │       ├── register_with_email.dart
+│   │   │   │       ├── send_password_reset_email.dart
+│   │   │   │       └── watch_auth_state.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── forgot_password_page.dart
+│   │   │       │   ├── login_page.dart
+│   │   │       │   ├── register_page.dart
+│   │   │       │   └── splash_page.dart
+│   │   │       ├── providers/
+│   │   │       │   ├── auth_controller.dart
+│   │   │       │   ├── auth_providers.dart
+│   │   │       │   └── auth_state.dart
+│   │   │       └── widgets/
+│   │   │           ├── auth_error_banner.dart
+│   │   │           ├── auth_form_card.dart
+│   │   │           └── password_text_field.dart
+│   │   ├── budgets/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── budget_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── budget_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── budget_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   ├── budget_status.dart
+│   │   │   │   │   └── monthly_budget.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── budget_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── get_monthly_budget.dart
+│   │   │   │       ├── set_monthly_budget.dart
+│   │   │   │       └── watch_budget_status.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   └── budget_page.dart
+│   │   │       ├── providers/
+│   │   │       │   └── budget_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── budget_form_dialog.dart
+│   │   │           └── budget_progress_indicator.dart
+│   │   ├── categories/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── category_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── category_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── category_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   ├── category.dart
+│   │   │   │   │   └── category_type.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── category_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── create_category.dart
+│   │   │   │       ├── delete_category.dart
+│   │   │   │       ├── seed_default_categories.dart
+│   │   │   │       ├── update_category.dart
+│   │   │   │       └── watch_categories.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── categories_page.dart
+│   │   │       │   └── category_form_page.dart
+│   │   │       ├── providers/
+│   │   │       │   └── category_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── category_form.dart
+│   │   │           ├── category_icon_picker.dart
+│   │   │           ├── category_list_tile.dart
+│   │   │           └── category_picker.dart
+│   │   ├── dashboard/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── dashboard_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── dashboard_summary_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── dashboard_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   ├── dashboard_summary.dart
+│   │   │   │   │   └── monthly_totals.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── dashboard_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── get_monthly_totals.dart
+│   │   │   │       ├── get_recent_transactions.dart
+│   │   │   │       └── watch_dashboard_summary.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   └── dashboard_page.dart
+│   │   │       ├── providers/
+│   │   │       │   └── dashboard_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── budget_progress_card.dart
+│   │   │           ├── expense_chart_card.dart
+│   │   │           ├── monthly_summary_card.dart
+│   │   │           ├── recent_transactions_list.dart
+│   │   │           ├── total_balance_card.dart
+│   │   │           └── wallet_balances_list.dart
+│   │   ├── debts/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   ├── debt_local_datasource.dart
+│   │   │   │   │   └── debt_repayment_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   ├── debt_model.dart
+│   │   │   │   │   └── debt_repayment_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── debt_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   ├── debt.dart
+│   │   │   │   │   ├── debt_direction.dart
+│   │   │   │   │   ├── debt_repayment.dart
+│   │   │   │   │   └── debt_summary.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── debt_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── add_repayment.dart
+│   │   │   │       ├── create_debt.dart
+│   │   │   │       ├── delete_debt.dart
+│   │   │   │       ├── delete_repayment.dart
+│   │   │   │       ├── get_debt_details.dart
+│   │   │   │       ├── get_debt_history.dart
+│   │   │   │       ├── update_debt.dart
+│   │   │   │       └── watch_debts.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── debt_details_page.dart
+│   │   │       │   ├── debt_form_page.dart
+│   │   │       │   └── debts_page.dart
+│   │   │       ├── providers/
+│   │   │       │   ├── debt_form_controller.dart
+│   │   │       │   └── debt_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── debt_form.dart
+│   │   │           ├── debt_list_item.dart
+│   │   │           ├── debt_summary_card.dart
+│   │   │           ├── repayment_form.dart
+│   │   │           └── repayment_list_item.dart
+│   │   ├── savings/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── savings_goal_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── savings_goal_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── savings_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   └── savings_goal.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── savings_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── create_savings_goal.dart
+│   │   │   │       ├── delete_savings_goal.dart
+│   │   │   │       ├── update_saved_amount.dart
+│   │   │   │       ├── update_savings_goal.dart
+│   │   │   │       └── watch_savings_goals.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── savings_goal_form_page.dart
+│   │   │       │   └── savings_page.dart
+│   │   │       ├── providers/
+│   │   │       │   ├── savings_goal_form_controller.dart
+│   │   │       │   └── savings_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── savings_goal_card.dart
+│   │   │           ├── savings_goal_form.dart
+│   │   │           └── savings_progress_bar.dart
+│   │   ├── settings/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── settings_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── app_settings_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── settings_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   ├── app_settings.dart
+│   │   │   │   │   └── theme_preference.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── settings_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── get_app_settings.dart
+│   │   │   │       ├── update_theme_preference.dart
+│   │   │   │       └── watch_app_settings.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── account_settings_page.dart
+│   │   │       │   └── settings_page.dart
+│   │   │       ├── providers/
+│   │   │       │   ├── settings_providers.dart
+│   │   │       │   └── theme_mode_provider.dart
+│   │   │       └── widgets/
+│   │   │           ├── settings_section.dart
+│   │   │           ├── settings_tile.dart
+│   │   │           ├── sync_status_tile.dart
+│   │   │           └── theme_mode_selector.dart
+│   │   ├── transactions/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── transaction_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── transaction_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── transaction_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   ├── financial_transaction.dart
+│   │   │   │   │   ├── transaction_filter.dart
+│   │   │   │   │   └── transaction_type.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── transaction_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── add_expense.dart
+│   │   │   │       ├── add_income.dart
+│   │   │   │       ├── delete_transaction.dart
+│   │   │   │       ├── get_transaction_by_id.dart
+│   │   │   │       ├── search_transactions.dart
+│   │   │   │       ├── update_transaction.dart
+│   │   │   │       └── watch_transactions.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── transaction_details_page.dart
+│   │   │       │   ├── transaction_form_page.dart
+│   │   │       │   └── transactions_page.dart
+│   │   │       ├── providers/
+│   │   │       │   ├── transaction_filter_provider.dart
+│   │   │       │   ├── transaction_form_controller.dart
+│   │   │       │   └── transaction_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── transaction_filter_sheet.dart
+│   │   │           ├── transaction_form.dart
+│   │   │           ├── transaction_list_item.dart
+│   │   │           ├── transaction_search_bar.dart
+│   │   │           └── transaction_type_toggle.dart
+│   │   ├── transfers/
+│   │   │   ├── data/
+│   │   │   │   ├── datasources/
+│   │   │   │   │   └── transfer_local_datasource.dart
+│   │   │   │   ├── models/
+│   │   │   │   │   └── transfer_model.dart
+│   │   │   │   └── repositories/
+│   │   │   │       └── transfer_repository_impl.dart
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   └── transfer.dart
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── transfer_repository.dart
+│   │   │   │   └── usecases/
+│   │   │   │       ├── create_transfer.dart
+│   │   │   │       ├── delete_transfer.dart
+│   │   │   │       ├── get_transfer_by_id.dart
+│   │   │   │       ├── update_transfer.dart
+│   │   │   │       ├── validate_transfer.dart
+│   │   │   │       └── watch_transfers.dart
+│   │   │   └── presentation/
+│   │   │       ├── pages/
+│   │   │       │   ├── transfer_form_page.dart
+│   │   │       │   └── transfers_history_page.dart
+│   │   │       ├── providers/
+│   │   │       │   ├── transfer_form_controller.dart
+│   │   │       │   └── transfer_providers.dart
+│   │   │       └── widgets/
+│   │   │           ├── transfer_form.dart
+│   │   │           └── transfer_list_item.dart
+│   │   └── wallets/
+│   │       ├── data/
+│   │       │   ├── datasources/
+│   │       │   │   └── wallet_local_datasource.dart
+│   │       │   ├── models/
+│   │       │   │   └── wallet_model.dart
+│   │       │   └── repositories/
+│   │       │       └── wallet_repository_impl.dart
+│   │       ├── domain/
+│   │       │   ├── entities/
+│   │       │   │   ├── wallet.dart
+│   │       │   │   └── wallet_with_balance.dart
+│   │       │   ├── repositories/
+│   │       │   │   └── wallet_repository.dart
+│   │       │   └── usecases/
+│   │       │       ├── create_wallet.dart
+│   │       │       ├── delete_wallet.dart
+│   │       │       ├── get_wallet_by_id.dart
+│   │       │       ├── update_wallet.dart
+│   │       │       ├── watch_wallet_balance.dart
+│   │       │       └── watch_wallets.dart
+│   │       └── presentation/
+│   │           ├── pages/
+│   │           │   ├── wallet_details_page.dart
+│   │           │   ├── wallet_form_page.dart
+│   │           │   └── wallets_page.dart
+│   │           ├── providers/
+│   │           │   ├── wallet_form_controller.dart
+│   │           │   └── wallet_providers.dart
+│   │           └── widgets/
+│   │               ├── wallet_card.dart
+│   │               ├── wallet_form.dart
+│   │               └── wallet_selector.dart
+│   ├── firebase/
+│   │   ├── auth/
+│   │   │   └── firebase_auth_remote_datasource.dart
+│   │   ├── firestore/
+│   │   │   ├── firestore_change_listener.dart
+│   │   │   ├── firestore_document_codec.dart
+│   │   │   └── firestore_remote_sync_gateway.dart
+│   │   ├── rest/
+│   │   │   ├── rest_auth_remote_datasource.dart
+│   │   │   ├── rest_firestore_remote_sync_gateway.dart
+│   │   │   └── rest_http_client.dart
+│   │   ├── firebase_initializer.dart
+│   │   ├── firebase_options.dart
+│   │   ├── firebase_platform_support.dart
+│   │   ├── firestore_collection_paths.dart
+│   │   └── firestore_field_names.dart
+│   └── main.dart
+├── test/
+│   ├── core/
+│   │   ├── database/
+│   │   │   └── .gitkeep
+│   │   ├── network/
+│   │   │   └── .gitkeep
+│   │   ├── services/
+│   │   │   └── .gitkeep
+│   │   ├── synchronization/
+│   │   │   └── .gitkeep
+│   │   └── utils/
+│   │       └── .gitkeep
+│   ├── features/
+│   │   ├── analytics/
+│   │   │   └── .gitkeep
+│   │   ├── authentication/
+│   │   │   └── .gitkeep
+│   │   ├── budgets/
+│   │   │   └── .gitkeep
+│   │   ├── categories/
+│   │   │   └── .gitkeep
+│   │   ├── dashboard/
+│   │   │   └── .gitkeep
+│   │   ├── debts/
+│   │   │   └── .gitkeep
+│   │   ├── savings/
+│   │   │   └── .gitkeep
+│   │   ├── settings/
+│   │   │   └── .gitkeep
+│   │   ├── transactions/
+│   │   │   └── .gitkeep
+│   │   ├── transfers/
+│   │   │   └── .gitkeep
+│   │   └── wallets/
+│   │       └── .gitkeep
+│   └── helpers/
+│       └── .gitkeep
+├── windows/
+│   └── .gitkeep
+├── .gitignore
+├── analysis_options.yaml
+├── firestore.indexes.json
+├── firestore.rules
+├── pubspec.yaml
+└── README.md

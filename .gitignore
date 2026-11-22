@@ -1,0 +1,95 @@
+# ---------------------------------------------------------------------------
+# Miscellaneous
+# ---------------------------------------------------------------------------
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# ---------------------------------------------------------------------------
+# IDE
+# ---------------------------------------------------------------------------
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# ---------------------------------------------------------------------------
+# Flutter / Dart / Pub
+# ---------------------------------------------------------------------------
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+# pubspec.lock is COMMITTED on purpose (this is an application, not a package).
+
+# Generated code: committed by default so a fresh clone builds without running
+# build_runner. Uncomment the next two lines to regenerate it locally instead.
+# *.g.dart
+# *.freezed.dart
+
+# ---------------------------------------------------------------------------
+# Android
+# ---------------------------------------------------------------------------
+android/.gradle/
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/key.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+**/*.keystore
+**/*.jks
+GeneratedPluginRegistrant.java
+
+# ---------------------------------------------------------------------------
+# Windows
+# ---------------------------------------------------------------------------
+windows/flutter/ephemeral/
+windows/flutter/generated_plugin_registrant.*
+windows/flutter/generated_plugins.cmake
+
+# ---------------------------------------------------------------------------
+# Firebase - local tooling and SECRETS
+# ---------------------------------------------------------------------------
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+# Admin SDK / service account keys must NEVER be in this repository or in the
+# app. They are server-side credentials.
+service-account*.json
+serviceAccount*.json
+*-firebase-adminsdk-*.json
+*.pem
+*.p12
+.env
+.env.*
+# NOTE: google-services.json and lib/firebase/firebase_options.dart are client
+# configuration (not secrets) and are tracked by default - see
+# docs/firebase_setup.md before changing that.
+
+# ---------------------------------------------------------------------------
+# Local databases created while running tests / the app on a dev machine
+# ---------------------------------------------------------------------------
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
